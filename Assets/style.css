@@ -102,7 +102,7 @@ h1 {
 
 .weather-cards {
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .weather-cards .card {
@@ -117,6 +117,10 @@ h1 {
 .weather-cards .card img {
     max-width: 70px;
     margin: 5px 0 -12px 0;
+}
+
+button {
+    margin: 10px;
 }
 
 /*media queries to make site responsive*/

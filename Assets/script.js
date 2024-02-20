@@ -3,6 +3,8 @@ const cityInput = document.querySelector(".city-input");
 const searchButton = document.querySelector(".search-btn");
 const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherCardsDiv = document.querySelector(".weather-cards");
+const historyArray = JSON.parse(localStorage.getItem("historyArray")) || []
+const historyEl = document.querySelector("#history")
 
 const API_KEY = "ef40e314163105cadeda4066c25abdba";// API Key for OpenWeatherMap API
 
@@ -32,23 +34,37 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 }
 
 const getCityCoordinates = () => {
-    const cityName = cityInput.value.trim(); // Get user entered city name and remove extra spaces
+   const cityName = cityInput.value.trim(); // Get user entered city name and remove extra spaces
    if (cityName === "") return; //return if cityName is empty
    const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
-//Get entered city coordinates (latitude, longitude, and name) from the API response
+   //Get entered city coordinates (latitude, longitude, and name) from the API response
    fetch(API_URL).then(res => res.json()).then(data => {
-    if (!data.length) return alert(`No coordinates found for ${cityName}`);
-    const { lat, lon, name } = data[0];
-    getWeatherDetails(name, lat, lon);
-   }).catch (() => {
+       if (!data.length) return alert(`No coordinates found for ${cityName}`);
+       
+       const { lat, lon, name } = data[0];
+       getWeatherDetails(name, lat, lon);
+
+       var cityButton = document.createElement("button")
+       cityButton.textContent = cityName;
+ 
+       cityButton.addEventListener("click", () => {
+       getWeatherDetails(name, lat, lon);  // functionality that is needed but out of event listener scopr
+     });
+
+       historyEl.append(cityButton);
+       historyArray.push(cityName)
+       localStorage.setItem("historyArray", JSON.stringify(historyArray))
+     })
+     .catch (() => {
     alert("An error occurred while fetching the coordinates!");
-});
+  });  
 }
 
 const getWeatherDetails = (cityName, latitude, longitude) => {
-    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=imperial`;
 
     fetch(WEATHER_API_URL).then(response => response.json()).then(data => {
+
 // Filter the forecasts to get only one forecast per day
         const uniqueForecastDays = [];
         const fiveDaysForecast = data.list.filter(forecast => {
@@ -67,7 +83,7 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
         fiveDaysForecast.forEach((weatherItem, index) => {
             const html = createWeatherCard(cityName, weatherItem, index);
             if (index === 0) {
-                currentWeatherDiv.insertAdjacentHTML("beforeend", html);
+                currentWeatherDiv.insertAdjacentHTML("beforeend", html); 
             } else {
                 weatherCardsDiv.insertAdjacentHTML("beforeend", html);
             }
@@ -77,7 +93,20 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
     });
 }
 
-//Add event listeners for click and enter (keyup) functionality in search button
+//loop to add event listeners to existing city buttons
+for(var i = 0; i < historyArray.length; i++){
+    var cityButton = document.createElement("button");
+    cityButton.textContent = historyArray[i];
 
+    cityButton.addEventListener("click", () => {
+        const cityData = historyArray[i]; 
+        getWeatherDetails(cityData.name, cityData.lat, cityData.lon);
+    });
+
+    historyEl.append(cityButton);
+
+}
+
+//Add event listeners for click and enter (keyup) functionality in search button
 searchButton.addEventListener("click", getCityCoordinates);
 cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates());

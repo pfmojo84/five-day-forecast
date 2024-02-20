@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Five Day Forecast</title>
     <link rel="stylesheet" href="./Assets/style.css">
-    <script src="./Assets/script.js" defer></script>    
+        
 </head>
 <body>
     <h1>Weather Dashboard</h1>
@@ -14,6 +14,7 @@
             <h3>Enter City Name</h3>
             <input class="city-input" type="text" placeholder="E.g., Boston, Santa Fe, Lisbon">
             <button class="search-btn">Search</button>
+            <div id="history"></div>
         </div>
         <div class="weather-data"> 
             <div class="current-weather">
@@ -25,7 +26,7 @@
                 </div>
             </div>
             <div class="days-forecast"> <!--Placeholders for weather details-->
-                <h2>5-Day Forecast</h2>
+                <h2>Upcoming Forecast</h2>
                 <ul class="weather-cards">
                     <li class="card">
                     <h3>(_________)</h3>
@@ -50,17 +51,11 @@
                     <h4>Temp:___</h4>
                     <h4>Wind:___</h4>
                     <h4>Humidity:___</h4>
-                    </li>
-                    <li class="card">
-                    <h3>(_________)</h3>
-                    <h4>Temp:___</h4>
-                    <h4>Wind:___</h4>
-                    <h4>Humidity:___</h4>
-                    </li>                    
+                    </li>                 
                 </ul>
             </div>
         </div>
     </div>
-
+    <script src="./Assets/script.js"></script>
 </body>
 </html>

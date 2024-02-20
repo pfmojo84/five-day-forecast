@@ -4,123 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Five Day Forecast</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./Assets/style.css">
-    <script src="https://kit.fontawesome.com/aba4fc8e64.js"></script>
+    <script src="./Assets/script.js" defer></script>    
 </head>
 <body>
-<!--Hero Section - Weather Dashboard Title-->
-    <section class="hero">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title has-text-white">Weather Dashboard</h1>
-                <h2 class="subtitle has-text-white">Five-Day Forecast</h2>
-            </div>
+    <h1>Weather Dashboard</h1>
+    <div class="container">
+        <div class="weather-input">
+            <h3>Enter City Name</h3>
+            <input class="city-input" type="text" placeholder="E.g., Boston, Santa Fe, Lisbon">
+            <button class="search-btn">Search</button>
         </div>
-    </section>
-<!--Search Field and Saved Cities Aside-->
-    <section class="info-section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-one-quarter content">
-                    <form>
-                        <h3>Enter City Here</h3>
-                        <input type="text" id="city-input" class="input is-info" placeholder="E.g., Boston, Santa Fe, etc.">
-                        <button id="submit" class="button is-info" type="submit">
-                            Search Now
-                        </button>
-                    </form>
-                    <!--Generate list of previous cities searched pulled from Local Storage-->
-                    <div class="box table-box">
-                        <div class="table-container">
-                            <table id="cityList" class="table is-bordered">
-                                <tr></tr>
-                                <!--Table to be generate using Javascript-->
-                            </table>
-                            <button id="clr-btn" class="button is-danger">CLEAR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Space for data returned from query-->
-                <div class="column">
-                    <div id="weather-data" class="columns box content">
-                        <div class="column current-city-data">
-                            <h2 id="city-name"></h2>
-                            <h4 id="city-cond"></h4>
-                            <h4 id="temp"></h4>
-                            <h4 id="high"></h4>
-                            <h4 id="humidity"></h4>
-                            <h4 id="wind-speed"></h4>
-                            <h4 id="uv-index"></h4>
-                        </div>
-                        <div class="column">
-                            <div id="icon"></div>
-                        </div>
-                    </div>
-                    <!--Placeholder cards for forecast data-->
-                    <div class="container">
-                        <div class="content">
-                            <h2>Five-Day Forecast:</h2>
-                            <div class="columns">
-                                <div class="column card">
-                                    <div id="dayCard" class="card-content">
-                                        <li class="card">
-                                            <h3>(_________)</h3>
-                                            <h4>Temp:___</h4>
-                                            <h4>Wind:___</h4>
-                                            <h4>Humidity:___</h4>
-                                        </li>
-                                    </div>
-                                </div>
-                                <div class="column card">
-                                    <div id="dayCard" class="card-content">
-                                        <li class="card">
-                                            <h3>(_________)</h3>
-                                            <h4>Temp:___</h4>
-                                            <h4>Wind:___</h4>
-                                            <h4>Humidity:___</h4>
-                                        </li>
-                                    </div>
-                                </div>
-                                <div class="column card">
-                                    <div id="dayCard" class="card-content">
-                                        <li class="card">
-                                            <h3>(_________)</h3>
-                                            <h4>Temp:___</h4>
-                                            <h4>Wind:___</h4>
-                                            <h4>Humidity:___</h4>
-                                        </li>
-                                    </div>
-                                </div>
-                                <div class="column card">
-                                    <div id="dayCard" class="card-content">
-                                        <li class="card">
-                                            <h3>(_________)</h3>
-                                            <h4>Temp:___</h4>
-                                            <h4>Wind:___</h4>
-                                            <h4>Humidity:___</h4>
-                                        </li>
-                                    </div>
-                                </div>
-                                <div class="column card">
-                                    <div id="dayCard" class="card-content">
-                                        <li class="card">
-                                            <h3>(_________)</h3>
-                                            <h4>Temp:___</h4>
-                                            <h4>Wind:___</h4>
-                                            <h4>Humidity:___</h4>
-                                        </li>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="weather-data"> 
+            <div class="current-weather">
+                <div class="details">
+                    <h2>_______ (________)</h2>
+                    <h4>Temp:___</h4>
+                    <h4>Wind:___</h4>
+                    <h4>Humidity:___</h4>
                 </div>
             </div>
+            <div class="days-forecast"> <!--Placeholders for weather details-->
+                <h2>5-Day Forecast</h2>
+                <ul class="weather-cards">
+                    <li class="card">
+                    <h3>(_________)</h3>
+                    <h4>Temp:___</h4>
+                    <h4>Wind:___</h4>
+                    <h4>Humidity:___</h4>
+                    </li>
+                    <li class="card">
+                    <h3>(_________)</h3>
+                    <h4>Temp:___</h4>
+                    <h4>Wind:___</h4>
+                    <h4>Humidity:___</h4>
+                    </li>
+                    <li class="card">
+                    <h3>(_________)</h3>
+                    <h4>Temp:___</h4>
+                    <h4>Wind:___</h4>
+                    <h4>Humidity:___</h4>
+                    </li>
+                    <li class="card">
+                    <h3>(_________)</h3>
+                    <h4>Temp:___</h4>
+                    <h4>Wind:___</h4>
+                    <h4>Humidity:___</h4>
+                    </li>
+                    <li class="card">
+                    <h3>(_________)</h3>
+                    <h4>Temp:___</h4>
+                    <h4>Wind:___</h4>
+                    <h4>Humidity:___</h4>
+                    </li>                    
+                </ul>
+            </div>
         </div>
-    </section>
+    </div>
 
-<script src="./Assets/script.js"></script>
 </body>
 </html>

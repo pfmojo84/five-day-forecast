@@ -31,6 +31,19 @@ const createWeatherCard = (cityName, weatherItem, index) => {
     }    
 }
 
+const getCityCoordinates = () => {
+    const cityName = cityInput.value.trim(); // Get user entered city name and remove extra spaces
+   if (cityName === "") return; //return if cityName is empty
+   const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+//Get entered city coordinates (latitude, longitude, and name) from the API response
+   fetch(API_URL).then(res => res.json()).then(data => {
+    if (!data.length) return alert(`No coordinates found for ${cityName}`);
+    const { lat, lon, name } = data[0];
+    getWeatherDetails(name, lat, lon);
+   }).catch (() => {
+    alert("An error occurred while fetching the coordinates!");
+});
+}
 
 const getWeatherDetails = (cityName, latitude, longitude) => {
     const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
@@ -62,21 +75,6 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
     }).catch(() => {
         alert("An error occurred while fetching the weather forecast!");
     });
-}
-
-
-const getCityCoordinates = () => {
-    const cityName = cityInput.value.trim(); // Get user entered city name and remove extra spaces
-   if (cityName === "") return; //return if cityName is empty
-   const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
-//Get entered city coordinates (latitude, longitude, and name) from the API response
-   fetch(API_URL).then(res => res.json()).then(data => {
-    if (!data.length) return alert(`No coordinates found for ${cityName}`);
-    const { lat, lon, name } = data[0];
-    getWeatherDetails(name, lat, lon);
-   }).catch (() => {
-    alert("An error occurred while fetching the coordinates!");
-});
 }
 
 //Add event listeners for click and enter (keyup) functionality in search button

@@ -12,6 +12,7 @@ const API_KEY = "ef40e314163105cadeda4066c25abdba";// API Key for OpenWeatherMap
 const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) {
         return `<div class="details">
+                <h1>Today's Weather</h1>
                 <h2>${cityName}(${weatherItem.dt_txt.split(" ")[0]})</h2>
                 <h4>Temp:${weatherItem.main.temp}</h4>
                 <h4>Wind:${weatherItem.wind.speed}</h4>
@@ -48,11 +49,11 @@ const getCityCoordinates = () => {
        cityButton.textContent = cityName;
  
        cityButton.addEventListener("click", () => {
-       getWeatherDetails(name, lat, lon);  // functionality that is needed but out of event listener scopr
+       getWeatherDetails(name, lat, lon);  
      });
 
        historyEl.append(cityButton);
-       historyArray.push(cityName)
+       historyArray.push({name: cityName, lat: lat, lon: lon});
        localStorage.setItem("historyArray", JSON.stringify(historyArray))
      })
      .catch (() => {
@@ -94,18 +95,16 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
 }
 
 //loop to add event listeners to existing city buttons
-for(var i = 0; i < historyArray.length; i++){
-    var cityButton = document.createElement("button");
-    cityButton.textContent = historyArray[i];
+historyArray.forEach((cityData, index) => {
+    let cityButton = document.createElement("button");
+    cityButton.textContent = cityData.name;
 
     cityButton.addEventListener("click", () => {
-        const cityData = historyArray[i]; 
         getWeatherDetails(cityData.name, cityData.lat, cityData.lon);
     });
 
     historyEl.append(cityButton);
-
-}
+});
 
 //Add event listeners for click and enter (keyup) functionality in search button
 searchButton.addEventListener("click", getCityCoordinates);

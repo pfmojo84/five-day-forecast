@@ -28,3 +28,7 @@ Screenshot:<br>
 ![Screenshot of Weather Dashboard](<Images/Screenshot 2024-02-22 at 11.09.15 AM.png>)<p>
 
 Link to Deployed Application:
+https://pfmojo84.github.io/five-day-forecast/
+
+Link to Repo:
+https://github.com/pfmojo84/five-day-forecast

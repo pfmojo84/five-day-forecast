@@ -22,4 +22,9 @@ Project Plan:<br>
 Resources:<br>
 OpenWeatherMap API - Geocoding and 5-day/3-hour Forecast<br>
 Asish George Tech - YT Tutorial<br>
-BCS Tutoring Services (Shout out to Robby Kurle for his expertise)<br>
+BCS Tutoring Services (Shout out to Robby Kurle for his expertise)<p>
+
+Screenshot:<br>
+![Screenshot of Weather Dashboard](<Images/Screenshot 2024-02-22 at 11.09.15 AM.png>)<p>
+
+Link to Deployed Application:

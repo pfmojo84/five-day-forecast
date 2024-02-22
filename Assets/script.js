@@ -8,59 +8,59 @@ const historyEl = document.querySelector("#history")
 
 const API_KEY = "ef40e314163105cadeda4066c25abdba";// API Key for OpenWeatherMap API
 
-//define items to post to dynamically add to html 
+// Takes parameters defined in acceptance criteria (city name, temp, wind, and humidity) and posts dynamically to html as weather cards.
 const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) {
         return `<div class="details">
-                <h1>Today's Weather</h1>
-                <h2>${cityName}(${weatherItem.dt_txt.split(" ")[0]})</h2>
-                <h4>Temp:${weatherItem.main.temp}</h4>
-                <h4>Wind:${weatherItem.wind.speed}</h4>
-                <h4>Humidity:${weatherItem.main.humidity}</h4>
+                <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
+                <h4>Temp: ${weatherItem.main.temp}</h4>
+                <h4>Wind: ${weatherItem.wind.speed}</h4>
+                <h4>Humidity: ${weatherItem.main.humidity}</h4>
                 </div>
                 <div class="icon">
                 <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
                 <h6>${weatherItem.weather[0].description}</h6>
-            </div>`;
+                </div>`;
     } else {
         return `<li class="card">
-                <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
+                <h3>${weatherItem.dt_txt.split(" ")[0]}</h3>
                 <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-                <h4>Temp:${weatherItem.main.temp}</h4>
-                <h4>Wind:${weatherItem.wind.speed}</h4>
-                <h4>Humidity:${weatherItem.main.humidity}</h4>
+                <h4>Temp: ${weatherItem.main.temp}</h4>
+                <h4>Wind: ${weatherItem.wind.speed}</h4>
+                <h4>Humidity: ${weatherItem.main.humidity}</h4>
                 </li>`
 
     }    
 }
-
+//function triggered when user enters a city name in search field. 
 const getCityCoordinates = () => {
    const cityName = cityInput.value.trim(); // Get user entered city name and remove extra spaces
    if (cityName === "") return; //return if cityName is empty
    const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
-   //Get entered city coordinates (latitude, longitude, and name) from the API response
+//Fetch latitude and longitude coordinates using OpenWeatherMap Geocoding API
    fetch(API_URL).then(res => res.json()).then(data => {
-       if (!data.length) return alert(`No coordinates found for ${cityName}`);
+       if (!data.length) return alert(`No coordinates found for ${cityName}`); //if response data is an emply array, it means no coordinates were found for the city.
        
-       const { lat, lon, name } = data[0];
+       const { lat, lon, name } = data[0]; //if coordinates are found, extract lat, lon, and name from first element of the response data
        getWeatherDetails(name, lat, lon);
 
-       var cityButton = document.createElement("button")
-       cityButton.textContent = cityName;
+       var cityButton = document.createElement("button") //create new button element 
+       cityButton.textContent = cityName; //set text content to cityName value
  
        cityButton.addEventListener("click", () => {
-       getWeatherDetails(name, lat, lon);  
+       getWeatherDetails(name, lat, lon);  //calls getWeatherDetails function to fetch weather based on geocoding coordinates
      });
 
-       historyEl.append(cityButton);
-       historyArray.push({name: cityName, lat: lat, lon: lon});
-       localStorage.setItem("historyArray", JSON.stringify(historyArray))
+       historyEl.append(cityButton); //adds cityButton to historyEl which is used to display search history
+       historyArray.push({name: cityName, lat: lat, lon: lon}); //push object to historyArray
+       localStorage.setItem("historyArray", JSON.stringify(historyArray)) //updates historyArray in the local storage in JSON formate
      })
      .catch (() => {
     alert("An error occurred while fetching the coordinates!");
   });  
 }
 
+//Fetch weather details using OpenWeatherMap 5 Day/3 Hour Forecast API
 const getWeatherDetails = (cityName, latitude, longitude) => {
     const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=imperial`;
 
@@ -95,7 +95,7 @@ const getWeatherDetails = (cityName, latitude, longitude) => {
 }
 
 //loop to add event listeners to existing city buttons
-historyArray.forEach((cityData, index) => {
+historyArray.forEach (cityData => {
     let cityButton = document.createElement("button");
     cityButton.textContent = cityData.name;
 

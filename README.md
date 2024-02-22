@@ -17,7 +17,7 @@ Acceptance Criteria:<br>
     THEN I am again presented with current and future conditions for that city<p>
 
 Project Plan:<br>
-    To create a five-day forecast app, I will use the example included in the challenge materials as a wireframe for the web app. <br> The design will include a header or hero section with the weather dashboard. There will be a side panel or menu for the user to input their city.<br> Using JS and the OpenWeather API, the data will return lat and lon coordinates from the location input (in local storage).Using the geocoding coordiantes, a function will then fetch the weather details for the city. This information will then post to the innerHTML.<br> An object with the city data will be updated in local storage an a button will be created that will allow users to easily obtain weather details for cities in the search history.<p>
+    To create a five-day forecast app, I will use the example included in the challenge materials as a wireframe for the web app. <br> The design will include a header or hero section with the weather dashboard. There will be a side panel or menu for the user to input their city.<br> Using JS and the OpenWeather API, the data will return lat and lon coordinates from the location input. Using the geocoding coordiantes, a function will then fetch the weather details for the city. This information will then post to the innerHTML.<br> An object with the city data will be updated in local storage and a button will be created that will allow users to easily obtain weather details for cities in the search history.<p>
 
 Resources:<br>
 OpenWeatherMap API - Geocoding and 5-day/3-hour Forecast<br>
